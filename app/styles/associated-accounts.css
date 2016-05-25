@@ -1,0 +1,17 @@
+.go-to-platform-link {
+  font-size: 10px;
+}
+
+.padded {
+	padding: 2px 0px;
+}
+
+.search-for-accounts-link {
+	text-align: center;
+}
+
+.platform-icon-image {
+	height: 75px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}

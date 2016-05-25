@@ -1,0 +1,41 @@
+<div layout="row" layout-xs="column">
+	<div layout="column" flex>
+		<h2 class="md-display-2">
+			{{associatedAccounts.searchTerm}}
+		</h2>
+		<h5 class="md-title">
+			<a href="www.twitter.com/{{associatedAccounts.searchTerm}}">Twitter Profile</a>
+		</h5>
+	</div>
+	<div flex="20">
+		<img ng-src="{{associatedAccounts.twitterAccountProfileImage}}" class="img-circle img-account-profile" alt="Profile Image" />
+	</div>
+
+</div>
+
+<div flex class="search-for-accounts-link">
+	<h5><a href="#/search-results/{{associatedAccounts.searchTerm}}">Back to profile analysis</a></h5>
+</div>
+
+</br>
+<div flex>
+	<div ng-repeat="platform in associatedAccounts.listOfMatchedAccountsByPlatform[associatedAccounts.indexOfSearchedAccount].dataFields track by platform.id" flex>
+		<img ng-src="{{platform.icon}}" class="platform-icon-image" alt="{{platform.platformName}} icon" />
+		</br>
+		<md-list-item class="md-3-line padded" ng-repeat="account in foundAccounts=(platform.accountArray)">
+		  <img ng-src="{{account.profileImage}}" class="md-avatar" alt="{{account.firstName}}" />
+		  
+		  <div class="md-list-item-text" layout="column">
+		    <h3>{{ account.firstName }} {{ account.lastName }}</h3>
+		    <p class="go-to-platform-link">
+		    	<a href="{{account.accountLink}}">Go to {{platform.platformName}} account</a>
+		    </p>
+		    <p>{{ account.location }}</p>
+		    </br>
+		  </div>
+
+		</md-list-item>
+		</br>
+		<md-divider ng-if="!$last"></md-divider>
+	</div>
+</div>

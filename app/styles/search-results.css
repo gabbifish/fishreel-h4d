@@ -1,0 +1,28 @@
+.twitter-account-field-table {
+  font-size: 12px;
+}
+
+td, th {
+  padding: 0px 4px;
+}
+
+td, th {
+  border-bottom: 3px black;
+}
+
+.summary-information {
+	box-sizing: border-box;
+}
+
+.img-account-profile {
+	height: 125px;
+	width: 125px;
+}
+
+.search-for-accounts-link {
+	text-align: center;
+}
+
+.img-chart {
+	width: 500px;
+}
