@@ -19,8 +19,7 @@ app.use(methodOverride());
 
 // listen (start app with node server.js) ======================================
 app.get('/', function(req, res) {
-        console.log("...");
-	res.sendFile('/opt/bitnami/apps/fishreel-test-may24/app/index.html'); 	// load the single view file (angular will handle the page changes on the front-end)
+        res.sendFile(__dirname + '/app/index.html'); 	// load the single view file (angular will handle the page changes on the front-end)
 });
 
 
