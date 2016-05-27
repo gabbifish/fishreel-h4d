@@ -27,6 +27,7 @@
 	</div>
 </div>
 
+
 <p></p>
 <div flex class="search-for-accounts-link">
 	<h5><a href="#/associated-accounts/{{searchResults.searchTerm}}">Search for associated accounts</a></h5>
@@ -42,6 +43,7 @@
 	</md-card-header>
   	<md-card-content>
   		<img ng-src="{{chart.imageArray[searchResults.indexOfSearchedAccount]}}" class="img-chart" alt="Chart" />
+  		<nvd3 options='searchResults.options' data='searchResults.data'></nvd3>
   	</md-card-content>
 </md-card>
 

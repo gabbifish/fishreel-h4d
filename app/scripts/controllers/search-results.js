@@ -60,7 +60,39 @@ angular.module('fishreelApp' /*, ['graphPlotter']*/)
       'AngularJS',
       'Karma'
     ];
-    $scope.searchResults = {};
+	$scope.searchResults = {};
+    $scope.searchResults.options = {
+    	        chart: {
+    	            type: 'boxPlotChart',
+    	            height: 450,
+    	            margin : {
+    	                top: 20,
+    	                right: 20,
+    	                bottom: 60,
+    	                left: 40
+    	            },
+    	            color:['darkblue'],
+    	            x: function(d){return d.label;},
+    	            // y: function(d){return d.values.Q3;},
+    	            maxBoxWidth: 75,
+    	            yDomain: [0, 500]
+    	        }
+   	};
+    $scope.searchResults.data = [
+            {
+                label: "Sample A",
+                values: {
+                    Q1: 180,
+                    Q2: 200,
+                    Q3: 250,
+                    whisker_low: 115,
+                    whisker_high: 400,
+                    outliers: [50, 100, 425]
+                }
+            }
+        ];
+
+    
     $scope.searchResults.searchTerm = $routeParams.searchTerm;
 
 	$scope.searchResults.anomalyDataArray = [
