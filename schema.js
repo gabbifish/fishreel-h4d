@@ -20,7 +20,22 @@ var userProfileSchema = new mongoose.Schema(
 
 var analysisFieldsSchema = new mongoose.Schema(
 	{
-		fieldName: String,
-		rawData: double
+		followersCount: double,
+		followingCount: double,
+		accountAge: double,
+		statusCount: double,
+		tweetsWithURLsCount: double,
+		avgURLCountPerTweet: double,
+		tweetsWithMentionsCount: double,
+		avgMentionCountPerTweet: double,
+		mentionedUsers: [mentionedUserSchema],
+		tweeetsOverTime: [double]
+	}
+);
+
+var mentionedUserSchema = new mongoose.Schema(
+	{
+		twitterHandle: String,
+		frequency: int
 	}
 );

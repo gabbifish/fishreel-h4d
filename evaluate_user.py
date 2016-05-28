@@ -104,10 +104,15 @@ def getTweetData(api, name):
 		
 		# store timestamp
 		tweet_timestamp = tweet_json['created_at']
-		tweet_data['tweet_timestamps'].append(tweet_timestamp)
+		tweet_datetime = datetime.datetime.strptime(tweet_timestamp, "%a %b %d %H:%M:%S +0000 %Y")
 
-	urls_per_tweet_count = urls_per_tweet_count/tweets_w_urls_count # calculate avg number of URLs in tweets that include URLs
-	mentions_per_tweet_count = 	mentions_per_tweet_count/tweets_w_mentions_count # calculate avg number of menetions in tweets that include mentions
+		# get epoch time of current time and account creation time
+		tweet_epoch = int(tweet_datetime.strftime("%s"))
+
+		tweet_data['tweet_timestamps'].append(tweet_epoch)
+
+	tweet_data['urls_per_tweet_count'] = urls_per_tweet_count/tweets_w_urls_count # calculate avg number of URLs in tweets that include URLs
+	tweet_data['mentions_per_tweet_count'] = 	mentions_per_tweet_count/tweets_w_mentions_count # calculate avg number of menetions in tweets that include mentions
 
 	tweet_data['tweets_w_urls_ct'] = tweets_w_urls_count
 	tweet_data['tweets_w_mentions_ct'] = tweets_w_mentions_count
