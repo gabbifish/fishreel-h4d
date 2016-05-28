@@ -4,13 +4,16 @@ var userProfileSchema = new mongoose.Schema(
 	{
 		twitterHandle: String,
 		userID: mongoose.Schema.Types.ObjectId,
-		firstName: String,
-		lastName: String,
+		name: String,
 		description: String,
 		location: String,
+		timezone: String,
 		website: String,
 		creationDate: Date,
 		profileImage: String,
+		language: String,
+		defaultProfile: boolean,
+		defaultAvatar: boolean,
 		analysisFields: [analysisFieldsSchema]
 	}
 );
@@ -18,18 +21,6 @@ var userProfileSchema = new mongoose.Schema(
 var analysisFieldsSchema = new mongoose.Schema(
 	{
 		fieldName: String,
-		fieldExplanation: String,
-		chartType: String,
-		rawData: 
-	}
-);
-
-
-var analysisFieldsSchema = new mongoose.Schema(
-	{
-		fieldName: String,
-		fieldExplanation: String,
-		chartType: String,
-		rawData: 
+		rawData: double
 	}
 );

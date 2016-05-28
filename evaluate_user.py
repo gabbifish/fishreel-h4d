@@ -3,14 +3,15 @@ from TwitterAPI import TwitterAPI
 import json
 import numpy as np
 import datetime
-import fileinput
+import sys
 
 # Initialize globally used values 
 curr_epoch = int(datetime.datetime.now().strftime("%s"))
 
 def getProfileData(api, name):
 	name = name.strip()
-	user_data = {} #empty map for storing results
+	profile_data = {} #empty map for storing profile data
+	activity_data = {} #empty map for storing twitter behavior data
 	# GET USER PROFILE DATA
 	u = api.request('users/lookup', {'screen_name':name})
 	for user_json in u.get_iterator():
@@ -19,12 +20,12 @@ def getProfileData(api, name):
 		tweet_array = np.empty([1, 6], dtype=int)
 
 		# 0th element: number of followers
-		user_data['followers_count'] = user_json['followers_count']
+		activity_data['followers_count'] = user_json['followers_count']
 
-		# 1st element: number of people following ('friends')
-		user_data['friends_count'] = user_json['friends_count']
+		# number of people following ('friends')
+		activity_data['friends_count'] = user_json['friends_count']
 
-		# 2nd element: age of account
+		# age of account
 		acct_creation_timestamp = user_json['created_at']
 		datetime_creation = datetime.datetime.strptime(acct_creation_timestamp, "%a %b %d %H:%M:%S +0000 %Y")
 
@@ -35,26 +36,35 @@ def getProfileData(api, name):
 		epoch_diff = curr_epoch - create_epoch
 		# convert epoch time into more understandable month unit.
 		epoch_diff = epoch_diff / (60*60*24*30) # assuming avg of 30 days a month.
-		user_data['acct_age'] = epoch_diff
+		activity_data['acct_age'] = epoch_diff
 
-		# 3rd and 4th element: extent of account customization. 
-		user_data['default profile'] = user_json['default_profile']
+		# number of statuses
+		activity_data['statuses_count'] = user_json['statuses_count']
 
-		user_data['default_profile_image'] = user_json['default_profile_image']
-
-		# 5th element: number of statuses
-		user_data['statuses_count'] = user_json['statuses_count']
+		# Add activity_data as a field of user profile data.
+		profile_data['activity_data'] = activity_data
 
 		# language data:
-		user_data['lang'] = user_json['lang']
+		profile_data['lang'] = user_json['lang']
 
 		# acct creation data
-		user_data['acct_created_at'] = user_json['created_at']
+		profile_data['acct_created_at'] = user_json['created_at']
 
 		# location, if provided. compare timezone to location to verify
-		user_data['location'] = user_json['location']
-		user_data['timezone'] = user_json['time_zone']
-	return user_data
+		profile_data['location'] = user_json['location']
+		profile_data['timezone'] = user_json['time_zone']
+
+		# extent of account customization. 
+		profile_data['default profile'] = user_json['default_profile']
+
+		profile_data['default_profile_image'] = user_json['default_profile_image']
+
+		# user description
+		profile_data['description'] = user_json['description']
+
+		# user image
+		profile_data['profile_image_url'] = user_json['profile_image_url']
+	return profile_data
 
 def getTweetData(api, name):
 	# ITERATE OVER USER'S TWEETS
@@ -110,12 +120,12 @@ def main():
 	relevant to heuristics used to capture social engineering attempts. """
 	api = TwitterAPI("h40ja5iFqGxoFQkKBNRSw4uGR", "bAwqCcJLgSzsvsz2jHDEh3n0mJ8DqVu8BlL7XFw5OJ6U9X92T8", "392486664-w6aPezJUbQvT3Qd7fMd1WVIfrUROQe2EZEZnzaMp", "TRNWsKQwLd2VNqaZmpg7NeaxhMxPjjjdoPaifp1zFIkyI") #strings
 
-	for name in fileinput.input():
+	for name in sys.stdin:
 		profileData = getProfileData(api, name)
 		tweetData = getTweetData(api, name)
 
 		# add tweetData to profileData
-		profileData.update(tweetData)
+		profileData['activity_data'].update(tweetData)
 
 		print profileData
 
