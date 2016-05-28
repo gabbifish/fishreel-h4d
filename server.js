@@ -17,6 +17,19 @@ app.use(bodyParser.json());                                     // parse applica
 app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse application/vnd.api+json as json
 app.use(methodOverride());
 
+var PythonShell = require('python-shell');
+
+app.get('/app/associated-accounts/:username', function (request, response) {
+
+    PythonShell.run('pipl-request.py', {args:[request.params.username]}, function (err, results) {
+        console.log("running python");
+        if (err) throw err;
+        console.log(results);
+        response.status(200).send("finished");
+    });
+    
+});
+
 // listen (start app with node server.js) ======================================
 app.get('/', function(req, res) {
         res.sendFile(__dirname + '/app/index.html'); 	// load the single view file (angular will handle the page changes on the front-end)
