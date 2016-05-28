@@ -8,7 +8,7 @@
  * Controller of the fishreelApp
  */
 angular.module('fishreelApp')
-  .controller('AssociatedAccountsCtrl', ['$scope', '$routeParams', function ($scope, $routeParams) {
+  .controller('AssociatedAccountsCtrl', ['$scope', '$routeParams', '$http', function ($scope, $routeParams, $http) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -26,6 +26,21 @@ angular.module('fishreelApp')
     		'https://pbs.twimg.com/profile_images/378800000864748702/ERTy9Mu9.jpeg',
     		'https://pbs.twimg.com/profile_images/710081445495226369/0EpZxIUx.jpg'
     ];
+
+    $scope.getAssociatedAccounts = function() {
+      console.log("Requested associated accounts for " + $scope.associatedAccounts.searchTerm);
+      console.log('/app/associated-accounts/'+$scope.associatedAccounts.searchTerm);
+      function successCallback(response){
+        console.log(response.status);
+      }
+      function errorCallback(response){
+        alert(response.data);
+      }
+      $http.get('/app/associated-accounts/'+$scope.associatedAccounts.searchTerm, 
+      	{"username":$scope.associatedAccounts.searchTerm}, {}).then(successCallback, errorCallback);
+    };
+
+    $scope.getAssociatedAccounts();
 
     $scope.associatedAccounts.indexOfSearchedAccount = listOfAccounts.indexOf($scope.associatedAccounts.searchTerm);
     $scope.associatedAccounts.twitterAccountProfileImage = profileImageArray[$scope.associatedAccounts.indexOfSearchedAccount];
