@@ -15,11 +15,31 @@ def getProfileData(api, name):
 	# GET USER PROFILE DATA
 	u = api.request('users/lookup', {'screen_name':name})
 	for user_json in u.get_iterator():
+		profile_data['twitter_handle'] = user_json['screen_name']
+		profile_data['user_name'] = user_json['name']
 
-		# create vector to represent this tweet
-		tweet_array = np.empty([1, 6], dtype=int)
+		# language data:
+		profile_data['lang'] = user_json['lang']
 
-		# 0th element: number of followers
+		# acct creation data
+		profile_data['acct_created_at'] = user_json['created_at']
+
+		# location, if provided. compare timezone to location to verify
+		profile_data['location'] = user_json['location']
+		profile_data['timezone'] = user_json['time_zone']
+
+		# extent of account customization. 
+		profile_data['default profile'] = user_json['default_profile']
+		profile_data['default_profile_image'] = user_json['default_profile_image']
+
+		# user image
+		profile_data['profile_image_url'] = user_json['profile_image_url']
+
+		# user description, personal homepage link
+		profile_data['description'] = user_json['description']
+		profile_data['associated_website'] = user_json['url']
+
+		# number of followers
 		activity_data['followers_count'] = user_json['followers_count']
 
 		# number of people following ('friends')
@@ -44,26 +64,6 @@ def getProfileData(api, name):
 		# Add activity_data as a field of user profile data.
 		profile_data['activity_data'] = activity_data
 
-		# language data:
-		profile_data['lang'] = user_json['lang']
-
-		# acct creation data
-		profile_data['acct_created_at'] = user_json['created_at']
-
-		# location, if provided. compare timezone to location to verify
-		profile_data['location'] = user_json['location']
-		profile_data['timezone'] = user_json['time_zone']
-
-		# extent of account customization. 
-		profile_data['default profile'] = user_json['default_profile']
-
-		profile_data['default_profile_image'] = user_json['default_profile_image']
-
-		# user description
-		profile_data['description'] = user_json['description']
-
-		# user image
-		profile_data['profile_image_url'] = user_json['profile_image_url']
 	return profile_data
 
 def getTweetData(api, name):

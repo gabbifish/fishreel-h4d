@@ -23,8 +23,9 @@ var userProfileSchema = new mongoose.Schema(
 var analysisFieldsSchema = new mongoose.Schema(
 	{
 		label: String,
-		description: String,
+		description: String, // this is supposed to be for units?
 		rawValue: double,
+		// reconsider valueAsPercentile, slightly larger impl lift than I expected
 		valueAsPercentile: double
 	}
 );
