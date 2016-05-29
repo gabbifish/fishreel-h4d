@@ -14,22 +14,18 @@ var userProfileSchema = new mongoose.Schema(
 		language: String,
 		defaultProfile: boolean,
 		defaultAvatar: boolean,
-		analysisFields: [analysisFieldsSchema]
+		analysisFields: [analysisFieldsSchema],
+		tweetsOverTime: [double],
+		mentionedUsers: [mentionedUserSchema]
 	}
 );
 
 var analysisFieldsSchema = new mongoose.Schema(
 	{
-		followersCount: double,
-		followingCount: double,
-		accountAge: double,
-		statusCount: double,
-		tweetsWithURLsCount: double,
-		avgURLCountPerTweet: double,
-		tweetsWithMentionsCount: double,
-		avgMentionCountPerTweet: double,
-		mentionedUsers: [mentionedUserSchema],
-		tweeetsOverTime: [double]
+		label: String,
+		description: String,
+		rawValue: double,
+		valueAsPercentile: double
 	}
 );
 
