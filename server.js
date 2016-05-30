@@ -20,14 +20,12 @@ app.use(methodOverride());
 var PythonShell = require('python-shell');
 
 app.get('/app/associated-accounts/:username', function (request, response) {
-
     PythonShell.run('pipl-request.py', {args:[request.params.username]}, function (err, results) {
         console.log("fetching associated accounts");
         if (err) throw err;
-        console.log(results);
-        response.status(200).send("finished");
+        console.log(JSON.stringify(results));
+        response.status(200).send(JSON.stringify(results));
     });
-    
 });
 
 app.get('/app/twitter_behavior/:username', function (request, response) {
@@ -35,7 +33,7 @@ app.get('/app/twitter_behavior/:username', function (request, response) {
         console.log("fetching twitter data about individual user");
         if (err) throw err;
         console.log(results);
-        response.status(200).send("finished");
+        response.status(200).send(results);
     });
     
 });

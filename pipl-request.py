@@ -1,17 +1,17 @@
 #!/usr/bin/python
 import sys
+import json
 from piplapis.search import SearchAPIRequest
 from piplapis.search import SearchAPIError
 
-# def main():
-query_username = sys.argv[1]
-print query_username
-request = SearchAPIRequest(api_key=u'CONTACT-DEMO-dxdgqz8atsyeoah3xmxbdd9l', username=unicode(query_username))
-print request
-try:
-    response = request.send()
-    print response.person
-    # return response
-except SearchAPIError as e:
-	print e.http_status_code, e
-    # return e.http_status_code, e
+#api_key=u'COMMUNITY-s20idwagbdiijrrjsmzhq320', username=unicode(query_username)
+
+def query(query_username):
+	request = SearchAPIRequest(api_key=u'COMMUNITY-s20idwagbdiijrrjsmzhq320', username=unicode(query_username))
+	try:
+		response = request.send()
+		print response.to_dict()
+	except SearchAPIError as e:
+		print e
+
+query(sys.argv[1])
