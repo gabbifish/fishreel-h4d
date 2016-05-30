@@ -125,14 +125,17 @@ def main():
 	relevant to heuristics used to capture social engineering attempts. """
 	api = TwitterAPI("h40ja5iFqGxoFQkKBNRSw4uGR", "bAwqCcJLgSzsvsz2jHDEh3n0mJ8DqVu8BlL7XFw5OJ6U9X92T8", "392486664-w6aPezJUbQvT3Qd7fMd1WVIfrUROQe2EZEZnzaMp", "TRNWsKQwLd2VNqaZmpg7NeaxhMxPjjjdoPaifp1zFIkyI") #strings
 
-	for name in sys.stdin:
-		profileData = getProfileData(api, name)
-		tweetData = getTweetData(api, name)
+	name = sys.argv[1]
+	if len(name) == 0:
+		return "ERROR: no username selector provided"
+	profileData = getProfileData(api, name)
+	tweetData = getTweetData(api, name)
 
-		# add tweetData to profileData
-		profileData['activity_data'].update(tweetData)
+	# add tweetData to profileData
+	profileData['activity_data'].update(tweetData)
 
-		print profileData
+	print json.dumps(profileData)
+	return json.dumps(profileData)
 
 if __name__ == "__main__":
 	main()
