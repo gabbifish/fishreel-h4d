@@ -26,3 +26,8 @@ td, th {
 .img-chart {
 	width: 500px;
 }
+
+.warning {
+	color: red;
+	font-weight: bold;
+}
