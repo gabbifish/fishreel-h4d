@@ -40,6 +40,18 @@ app.get('/app/twitter_behavior/:username', function (request, response) {
     
 });
 
+app.get('/app/twitter_user_exists/:username', function (request, response) {
+    PythonShell.run('account_exists.py', {args:[request.params.username]}, function (err, results) {
+        console.log("checking if user exists");
+        if (err) {
+            response.status(400).send("No account found with that name");
+        } else {
+            response.status(200).send(results);
+        };
+    });
+    
+});
+
 // listen (start app with node server.js) ======================================
 app.get('/', function(req, res) {
         res.sendFile(__dirname + '/app/index.html'); 	// load the single view file (angular will handle the page changes on the front-end)
