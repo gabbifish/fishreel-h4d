@@ -25,7 +25,7 @@ app.get('/app/associated-accounts/:username', function (request, response) {
         console.log("fetching associated accounts");
         if (err) throw err;
         console.log(results);
-        response.status(200).send("finished");
+        response.status(200).send(results);
     });
     
 });
