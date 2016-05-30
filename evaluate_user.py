@@ -135,7 +135,7 @@ def main():
 	profileData['activity_data'].update(tweetData)
 
 	print json.dumps(profileData)
-	return json.dumps(profileData)
+	#return json.dumps(profileData)
 
 if __name__ == "__main__":
 	main()

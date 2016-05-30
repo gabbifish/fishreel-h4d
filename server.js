@@ -35,7 +35,7 @@ app.get('/app/twitter_behavior/:username', function (request, response) {
         console.log("fetching twitter data about individual user");
         if (err) throw err;
         console.log(results);
-        response.status(200).send("finished");
+        response.status(200).send(results);
     });
     
 });
