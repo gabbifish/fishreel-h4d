@@ -3,14 +3,14 @@
 	<div layout="row" layout-xs="column">
 		<div layout="column" flex>
 			<h2 class="md-display-2">
-				{{searchResults.searchTerm}}
+				{{searchResults.userProfileFromServer.twitterHandle}}
 			</h2>
 			<h5 class="md-title">
-				Details from <a href="www.twitter.com/{{searchResults.searchTerm}}">Twitter Profile</a>:
+				Details from <a href="www.twitter.com/{{searchResults.userProfileFromServer.twitterHandle}}">Twitter Profile</a>:
 			</h5>
 		</div>
 		<div flex="20">
-			<img ng-src="{{searchResults.twitterAccountProfileImage}}" class="img-circle img-account-profile" alt="Profile Image" />
+			<img ng-src="{{searchResults.userProfileFromServer.profileImage}}" class="img-circle img-account-profile" alt="Profile Image" />
 		</div>
 	</div>
 	<div layout="row" class="md-subhead" flex>
@@ -19,31 +19,56 @@
 				<th>Field</th>
 				<th>Value</th>
 			</tr>
-			<tr ng-repeat="accountField in searchResults.twitterAccountDetails[searchResults.indexOfSearchedAccount].fieldArrays track by accountField.id">
-				<td>{{accountField.field}}</td>
-				<td>{{accountField.value}}</td>
+			<tr>
+				<td>Name</td>
+				<td>{{searchResults.userProfileFromServer.name}}</td>
+			</tr>
+			<tr>
+				<td>Description</td>
+				<td>{{searchResults.userProfileFromServer.description}}</td>
+			</tr>
+			<tr>
+				<td>Location</td>
+				<td>{{searchResults.userProfileFromServer.location}}</td>
+			</tr>
+			<tr>
+				<td>Timezone</td>
+				<td>{{searchResults.userProfileFromServer.timezone}}</td>
+			</tr>
+			<tr>
+				<td>Website</td>
+				<td>{{searchResults.userProfileFromServer.website}}</td>
+			</tr>
+			<tr>
+				<td>Creation date</td>
+				<td>{{searchResults.userProfileFromServer.creationDate}}</td>
+			</tr>
+			<tr>
+				<td>Language</td>
+				<td>{{searchResults.userProfileFromServer.language}}</td>
 			</tr>
 		</table>
 	</div>
 </div>
 
-
-<p></p>
 <div flex class="search-for-accounts-link">
-	<h5><a href="#/associated-accounts/{{searchResults.searchTerm}}">Search for associated accounts</a></h5>
+	<h3><a href="#/associated-accounts/{{searchResults.userProfileFromServer.twitterHandle}}">Search for associated accounts</a></h3>
 </div>
+
 <md-divider></md-divider>
 
-<md-card ng-repeat="chart in searchResults.anomalyDataArray track by chart.id">
+<md-card ng-repeat="analysisField in searchResults.userProfileFromServer.analysisFields">
 	<md-card-header>
 		<md-card-header-text>
-		      <span class="md-title">{{chart.label}}</span>
-		      <!-- <span class="md-subhead">Sub header</span> -->
+		      <span class="md-title">{{analysisField.label}}</span>
+		      <span class="md-subhead">{{analysisField.description}}</span>
+		      <span class="md-subhead">{{analysisField.rawValue}}</span>
 		</md-card-header-text>
 	</md-card-header>
   	<md-card-content>
-  		<img ng-src="{{chart.imageArray[searchResults.indexOfSearchedAccount]}}" class="img-chart" alt="Chart" />
+ 	<!--
   		<nvd3 options='searchResults.options' data='searchResults.data'></nvd3>
+-->
   	</md-card-content>
 </md-card>
 

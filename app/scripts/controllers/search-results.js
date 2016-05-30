@@ -8,52 +8,7 @@
  * Controller of the fishreelApp
  */
 angular.module('fishreelApp' /*, ['graphPlotter']*/)
-  /*.directive('hcBoxPlot', function () {
-        return {
-            restrict: 'E',
-            template: '<div></div>',
-            scope: {
-                title: '@',
-                data: '='
-            },
-            link: function (scope, element) {
-                Highcharts.chart(element[0], {
-                    chart: {
-                        type: 'boxplot'
-                    },
-                    title: {
-                        text: 'test'
-                    },
-                    legend: {
-        	            enabled: false
-        	        },
-                    yAxis: {
-                        title: {
-                            text: 'Observations'
-                        }
-                    },
-                    plotOptions: {
-                        boxplot: {
-                            fillColor: '#F0F0E0',
-                            lineWidth: 2,
-                            medianColor: '#0C5DA5',
-                            medianWidth: 3,
-                            stemColor: '#A63400',
-                            stemDashStyle: 'dot',
-                            stemWidth: 1,
-                            whiskerColor: '#3D9200',
-                            whiskerLength: '20%',
-                            whiskerWidth: 3
-                        }
-                    },
-                    series: [{
-                        data: scope.data
-                    }]
-                });
-            }
-        };
-    })*/
-  .controller('SearchResultsCtrl', ['$scope', '$routeParams', function ($scope, $routeParams) {
+  .controller('SearchResultsCtrl', ['$scope', '$routeParams', '$http', function ($scope, $routeParams, $http) {
     
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
@@ -78,6 +33,49 @@ angular.module('fishreelApp' /*, ['graphPlotter']*/)
     	            yDomain: [0, 500]
     	        }
    	};
+   	$scope.searchResults.searchTerm = $routeParams.searchTerm;
+	
+   	$scope.getTwitterAnalysis = function() {
+      console.log("Requested twitte anaylsis for " + $scope.searchResults.searchTerm);
+      console.log('/app/twitter_behavior/'+$scope.searchResults.searchTerm);
+      function successCallback(response){
+        console.log(response.status);
+        console.log(response);
+      }
+      function errorCallback(response){
+        alert(response.data);
+      }
+      $http.get('/app/twitter_behavior/'+$scope.searchResults.searchTerm, 
+      	{"username":$scope.searchResults.searchTerm}, {}).then(successCallback, errorCallback);
+    };
+
+    $scope.getTwitterAnalysis();
+
+
+   	$scope.searchResults.userProfileFromServer = {
+		twitterHandle: "travis_noll",
+		userID: 2,
+		name: "name",
+		description: "desc",
+		location: "loca",
+		timezone: "time",
+		website: "website",
+		creationDate: "Date",
+		profileImage: 'https://pbs.twimg.com/profile_images/623537519649394688/Gough0Pl.jpg',
+		language: "lang",
+		defaultProfile: "boolean",
+		defaultAvatar: "boolean",
+		analysisFields: [{
+			label: "label",
+			description: "description", // this is supposed to be for units?
+			rawValue: 20,
+			// reconsider valueAsPercentile, slightly larger impl lift than I expected
+			valueAsPercentile: "double"
+		}]
+	};
+
+/*
+
     $scope.searchResults.data = [
             {
                 label: "Sample A",
@@ -272,32 +270,5 @@ angular.module('fishreelApp' /*, ['graphPlotter']*/)
 		}
 
 	];
-/*
-	$scope.pieData = [1, 2, 3, 4, 5];
-
-
-
-
-	var trace1 = {
-	  x: [1, 2, 3, 4, 4, 4, 8, 9, 10],
-	  type: 'box',
-	  name: 'Set 1'
-	};
-
-	var trace2 = {
-	  x: [2, 3, 3, 3, 3, 5, 6, 6, 7],
-	  type: 'box',
-	  name: 'Set 2'
-	};
-
-	var data = [trace1, trace2];
-
-	var layout = {
-	  title: 'Horizontal Box Plot'
-	};
-	var TESTER = document.getElementById('tester');
-	Plotly.newPlot(TESTER, data, layout);
-	*/
-
-
+*/
   }]);
