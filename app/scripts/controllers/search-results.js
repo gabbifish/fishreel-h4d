@@ -40,7 +40,8 @@ angular.module('fishreelApp' /*, ['graphPlotter']*/)
       console.log('/app/twitter_behavior/'+$scope.searchResults.searchTerm);
       function successCallback(response){
         console.log(response.status);
-        console.log(response);
+        $scope.searchResults.userProfileFromServer = JSON.parse(response.data);
+        console.log($scope.searchResults.userProfileFromServer);
       }
       function errorCallback(response){
         alert(response.data);
@@ -52,7 +53,7 @@ angular.module('fishreelApp' /*, ['graphPlotter']*/)
     $scope.getTwitterAnalysis();
 
 
-   	$scope.searchResults.userProfileFromServer = {
+   	$scope.searchResults.userProfileFromServer2 = {
 		twitterHandle: "travis_noll",
 		userID: 2,
 		name: "name",

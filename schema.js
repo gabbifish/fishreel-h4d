@@ -12,8 +12,8 @@ var userProfileSchema = new mongoose.Schema(
 		creationDate: Date,
 		profileImage: String,
 		language: String,
-		defaultProfile: boolean,
-		defaultAvatar: boolean,
+		defaultProfileBool: boolean,
+		defaultAvatarBool: boolean,
 		analysisFields: [analysisFieldsSchema],
 		tweetsOverTime: [double],
 		mentionedUsers: [mentionedUserSchema]

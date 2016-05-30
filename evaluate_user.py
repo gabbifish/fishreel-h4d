@@ -15,29 +15,29 @@ def getProfileData(api, name):
 	# GET USER PROFILE DATA
 	u = api.request('users/lookup', {'screen_name':name})
 	for user_json in u.get_iterator():
-		profile_data['twitter_handle'] = user_json['screen_name']
-		profile_data['user_name'] = user_json['name']
+		profile_data['twitterHandle'] = user_json['screen_name']
+		profile_data['name'] = user_json['name']
 
 		# language data:
-		profile_data['lang'] = user_json['lang']
+		profile_data['language'] = user_json['lang']
 
 		# acct creation data
-		profile_data['acct_created_at'] = user_json['created_at']
+		profile_data['creationDate'] = user_json['created_at']
 
 		# location, if provided. compare timezone to location to verify
 		profile_data['location'] = user_json['location']
 		profile_data['timezone'] = user_json['time_zone']
 
 		# extent of account customization. 
-		profile_data['default profile'] = user_json['default_profile']
-		profile_data['default_profile_image'] = user_json['default_profile_image']
+		profile_data['defaultProfileBool'] = user_json['default_profile']
+		profile_data['defaultAvatarBool'] = user_json['default_profile_image']
 
 		# user image
-		profile_data['profile_image_url'] = user_json['profile_image_url']
+		profile_data['profileImage'] = user_json['profile_image_url']
 
 		# user description, personal homepage link
 		profile_data['description'] = user_json['description']
-		profile_data['associated_website'] = user_json['url']
+		profile_data['website'] = user_json['url']
 
 		# number of followers
 		activity_data['followers_count'] = user_json['followers_count']
