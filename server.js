@@ -23,13 +23,8 @@ app.get('/app/associated-accounts/:username', function (request, response) {
     PythonShell.run('pipl-request.py', {args:[request.params.username]}, function (err, results) {
         console.log("fetching associated accounts");
         if (err) throw err;
-<<<<<<< HEAD
         console.log(JSON.stringify(results));
         response.status(200).send(JSON.stringify(results));
-=======
-        console.log(results);
-        response.status(200).send(results);
->>>>>>> 2d9c5a1b3641f559f1f3da576b56571dee3d71ad
     });
 });
 
