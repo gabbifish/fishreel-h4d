@@ -5,6 +5,8 @@ import numpy as np
 import datetime
 import sys
 
+import urllib3
+
 # Initialize globally used values 
 curr_epoch = int(datetime.datetime.now().strftime("%s"))
 
@@ -184,13 +186,14 @@ def getTweetData(api, name):
 	return tweet_data
 
 def main():
+	urllib3.disable_warnings()
 	""" Given a Twitter handle, gathers information about a Twitter user (and their content) 
 	relevant to heuristics used to capture social engineering attempts. """
-	api = TwitterAPI("h40ja5iFqGxoFQkKBNRSw4uGR", "bAwqCcJLgSzsvsz2jHDEh3n0mJ8DqVu8BlL7XFw5OJ6U9X92T8", "392486664-w6aPezJUbQvT3Qd7fMd1WVIfrUROQe2EZEZnzaMp", "TRNWsKQwLd2VNqaZmpg7NeaxhMxPjjjdoPaifp1zFIkyI") #strings
+	api = TwitterAPI("D7moPjDYBt2js6KoASfBw9lPD", "h3jFuIxgtwd0NCIZtpKm2rEWf7pJO0qmYvKyLk3mOdeVGqMeQV", "392486664-PhilvAQafk5pG4GzBtAeck2zezABYYwWBs2BF57I", "EfLburVhhDaC5h70H42Atr3DseLYouoqm847HMyBgpilA") #strings
 
 	name = sys.argv[1]
 	if len(name) == 0:
-		return "ERROR: no username selector provided"
+		print "null"
 	profileData = getProfileData(api, name)
 	tweetData = getTweetData(api, name)
 

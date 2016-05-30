@@ -9,7 +9,7 @@
  */
 angular.module('fishreelApp' /*, ['graphPlotter']*/)
   .controller('SearchResultsCtrl', ['$scope', '$routeParams', '$http', function ($scope, $routeParams, $http) {
-    
+
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -36,7 +36,7 @@ angular.module('fishreelApp' /*, ['graphPlotter']*/)
    	$scope.searchResults.searchTerm = $routeParams.searchTerm;
 	
    	$scope.getTwitterAnalysis = function() {
-      console.log("Requested twitte anaylsis for " + $scope.searchResults.searchTerm);
+      console.log("Requested twitter anaylsis for " + $scope.searchResults.searchTerm);
       console.log('/app/twitter_behavior/'+$scope.searchResults.searchTerm);
       function successCallback(response){
         console.log(response.status);
@@ -51,6 +51,7 @@ angular.module('fishreelApp' /*, ['graphPlotter']*/)
     };
 
     $scope.getTwitterAnalysis();
+
 
 
    	$scope.searchResults.userProfileFromServer2 = {
