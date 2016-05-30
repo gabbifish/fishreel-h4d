@@ -4,32 +4,35 @@ var userProfileSchema = new mongoose.Schema(
 	{
 		twitterHandle: String,
 		userID: mongoose.Schema.Types.ObjectId,
-		firstName: String,
-		lastName: String,
+		name: String,
 		description: String,
 		location: String,
+		timezone: String,
 		website: String,
 		creationDate: Date,
 		profileImage: String,
-		analysisFields: [analysisFieldsSchema]
+		language: String,
+		defaultProfile: boolean,
+		defaultAvatar: boolean,
+		analysisFields: [analysisFieldsSchema],
+		tweetsOverTime: [double],
+		mentionedUsers: [mentionedUserSchema]
 	}
 );
 
 var analysisFieldsSchema = new mongoose.Schema(
 	{
-		fieldName: String,
-		fieldExplanation: String,
-		chartType: String,
-		rawData: 
+		label: String,
+		description: String, // this is supposed to be for units?
+		rawValue: double,
+		// reconsider valueAsPercentile, slightly larger impl lift than I expected
+		valueAsPercentile: double
 	}
 );
 
-
-var analysisFieldsSchema = new mongoose.Schema(
+var mentionedUserSchema = new mongoose.Schema(
 	{
-		fieldName: String,
-		fieldExplanation: String,
-		chartType: String,
-		rawData: 
+		twitterHandle: String,
+		frequency: int
 	}
 );
