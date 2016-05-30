@@ -137,7 +137,7 @@ def getTweetData(api, name):
 	})
 	tweet_data.append({
 		'label': 'urls_per_tweet_count',
-		'rawValue': urls_per_tweet_count/tweets_w_urls_count 
+		'rawValue': urls_per_tweet_count/tweets_w_urls_count if tweets_w_urls_count > 0 else 0
 	})
 
 	# urls_per_tweet_count/tweets_w_urls_count # calculate avg number of URLs in tweets that include URLs
@@ -148,7 +148,7 @@ def getTweetData(api, name):
 
 	tweet_data.append({
 		'label': 'mentions_per_tweet_count',
-		'rawValue': mentions_per_tweet_count/tweets_w_mentions_count
+		'rawValue': mentions_per_tweet_count/tweets_w_mentions_count if tweets_w_mentions_count > 0 else 0
 	})
 	# mentions_per_tweet_count/tweets_w_mentions_count # calculate avg number of menetions in tweets that include mentions
 	# profileData['activity_data'].append({
@@ -189,13 +189,14 @@ def main():
 	urllib3.disable_warnings()
 	""" Given a Twitter handle, gathers information about a Twitter user (and their content) 
 	relevant to heuristics used to capture social engineering attempts. """
-	api = TwitterAPI("D7moPjDYBt2js6KoASfBw9lPD", "h3jFuIxgtwd0NCIZtpKm2rEWf7pJO0qmYvKyLk3mOdeVGqMeQV", "392486664-PhilvAQafk5pG4GzBtAeck2zezABYYwWBs2BF57I", "EfLburVhhDaC5h70H42Atr3DseLYouoqm847HMyBgpilA") #strings
+	api = TwitterAPI("h40ja5iFqGxoFQkKBNRSw4uGR", "bAwqCcJLgSzsvsz2jHDEh3n0mJ8DqVu8BlL7XFw5OJ6U9X92T8", "392486664-w6aPezJUbQvT3Qd7fMd1WVIfrUROQe2EZEZnzaMp", "TRNWsKQwLd2VNqaZmpg7NeaxhMxPjjjdoPaifp1zFIkyI") #strings
 
 	name = sys.argv[1]
 	if len(name) == 0:
 		print "null"
 	profileData = getProfileData(api, name)
 	tweetData = getTweetData(api, name)
+
 
 	# add tweetData to profileData
 	# profileData['activity_data'].append(tweetData)
