@@ -37,7 +37,7 @@
 			</tr>
 			<tr>
 				<td>Website</td>
-				<td>{{searchResults.userProfileFromServer.website}}</td>
+				<td><a href={{searchResults.userProfileFromServer.website}}></a></td>
 			</tr>
 			<tr>
 				<td>Creation date</td>
@@ -57,18 +57,23 @@
 
 <md-divider></md-divider>
 
-<md-card ng-repeat="analysisField in searchResults.userProfileFromServer.analysisFields">
+<md-card ng-repeat="analysisField in searchResults.userProfileFromServer.activity_data track by analysisField.label">
 	<md-card-header>
 		<md-card-header-text>
-		      <span class="md-title">{{analysisField.label}}</span>
-		      <span class="md-subhead">{{analysisField.description}}</span>
-		      <span class="md-subhead">{{analysisField.rawValue}}</span>
+		      <span class="md-title">{{analysisField.dataTitle}}</span>
+		      <span class="md-subhead">{{analysisField.dataDescription}}</span>
+		      <span class="md-subhead warning">{{analysisField.warning}}</span>
+		      <p></p>
+		      <span class="md-subhead"><h4 class="search-for-accounts-link">{{analysisField.rawValue}}</h4></span>
 		</md-card-header-text>
 	</md-card-header>
   	<md-card-content>
- 	<!--
-  		<nvd3 options='searchResults.options' data='searchResults.data'></nvd3>
--->
+  		<section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+  			<md-button class="md-raised" ng-click="searchResults.showOrHideMoreData(analysisField.label)">{{analysisField.buttonText}}</md-button>
+		</section>
+  		<div flex>
+  			<nvd3 flex options='searchResults.options' data='analysisField.summaryData' ng-hide="analysisField.hiddenBool"></nvd3>
+  		</div>
   	</md-card-content>
 </md-card>
 

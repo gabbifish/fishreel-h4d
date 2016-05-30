@@ -30,10 +30,11 @@ app.get('/app/associated-accounts/:username', function (request, response) {
 
 app.get('/app/twitter_behavior/:username', function (request, response) {
     PythonShell.run('evaluate_user.py', {args:[request.params.username]}, function (err, results) {
-        console.log("fetching twitter data about individual user");
-        if (err) throw err;
-        console.log(results);
-        response.status(200).send(results);
+        if (err) {
+            response.status(400).send("No account found with that name");
+        } else{
+            response.status(200).send(results);
+        };
     });
     
 });

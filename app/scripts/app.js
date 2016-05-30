@@ -16,7 +16,8 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',  
-    'nvd3'
+    'nvd3',
+    'ngMaterial'
   ])
   .config(function ($routeProvider) {
     $routeProvider
