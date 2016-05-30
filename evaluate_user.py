@@ -11,39 +11,48 @@ curr_epoch = int(datetime.datetime.now().strftime("%s"))
 def getProfileData(api, name):
 	name = name.strip()
 	profile_data = {} #empty map for storing profile data
-	activity_data = {} #empty map for storing twitter behavior data
+	activity_data = [] #empty map for storing twitter behavior data
 	# GET USER PROFILE DATA
 	u = api.request('users/lookup', {'screen_name':name})
 	for user_json in u.get_iterator():
-		profile_data['twitter_handle'] = user_json['screen_name']
-		profile_data['user_name'] = user_json['name']
+		profile_data['twitterHandle'] = user_json['screen_name']
+		profile_data['name'] = user_json['name']
 
 		# language data:
-		profile_data['lang'] = user_json['lang']
+		profile_data['language'] = user_json['lang']
 
 		# acct creation data
-		profile_data['acct_created_at'] = user_json['created_at']
+		profile_data['creationDate'] = user_json['created_at']
 
 		# location, if provided. compare timezone to location to verify
 		profile_data['location'] = user_json['location']
 		profile_data['timezone'] = user_json['time_zone']
 
 		# extent of account customization. 
-		profile_data['default profile'] = user_json['default_profile']
-		profile_data['default_profile_image'] = user_json['default_profile_image']
+		profile_data['defaultProfileBool'] = user_json['default_profile']
+		profile_data['defaultAvatarBool'] = user_json['default_profile_image']
 
 		# user image
-		profile_data['profile_image_url'] = user_json['profile_image_url']
+		profile_data['profileImage'] = user_json['profile_image_url']
 
 		# user description, personal homepage link
 		profile_data['description'] = user_json['description']
-		profile_data['associated_website'] = user_json['url']
+		profile_data['website'] = user_json['url']
 
 		# number of followers
-		activity_data['followers_count'] = user_json['followers_count']
+		activity_data.append({
+			'label': 'followersCount',
+			'rawValue': user_json['followers_count']
+		})
+		# activity_data['followers_count'] = user_json['followers_count']
 
 		# number of people following ('friends')
-		activity_data['friends_count'] = user_json['friends_count']
+		# activity_data['friends_count'] = user_json['friends_count']
+		activity_data.append({
+			'label': 'friendsCount',
+			'rawValue': user_json['friends_count']
+		})
+
 
 		# age of account
 		acct_creation_timestamp = user_json['created_at']
@@ -56,10 +65,19 @@ def getProfileData(api, name):
 		epoch_diff = curr_epoch - create_epoch
 		# convert epoch time into more understandable month unit.
 		epoch_diff = epoch_diff / (60*60*24*30) # assuming avg of 30 days a month.
-		activity_data['acct_age'] = epoch_diff
+		#activity_data['acct_age'] = epoch_diff
+		activity_data.append({
+			'label': 'accountAge',
+			'rawValue': epoch_diff
+		})
 
 		# number of statuses
-		activity_data['statuses_count'] = user_json['statuses_count']
+		#activity_data['statuses_count'] = user_json['statuses_count']
+		activity_data.append({
+			'label': 'statusesCount',
+			'rawValue': user_json['statuses_count']
+		})
+
 
 		# Add activity_data as a field of user profile data.
 		profile_data['activity_data'] = activity_data
@@ -68,7 +86,7 @@ def getProfileData(api, name):
 
 def getTweetData(api, name):
 	# ITERATE OVER USER'S TWEETS
-	tweet_data = {} # dict to store user's aggregate tweet data
+	tweet_data = [] # dict to store user's aggregate tweet data
 	t = api.request('statuses/user_timeline', {'screen_name':name, 'trim_user':'true', 'include_rts':'false', 'exclude_replies':'true'})
 	tweet_count = 0;
 
@@ -79,7 +97,7 @@ def getTweetData(api, name):
 	mentions_per_tweet_count = 0.0
 	tweets_w_mentions_count = 0.0
 
-	tweet_data['tweet_timestamps'] = []
+	tweet_timestamps = []
 
 	for item in t.get_iterator():
 		tweet_count += 1
@@ -109,14 +127,59 @@ def getTweetData(api, name):
 		# get epoch time of current time and account creation time
 		tweet_epoch = int(tweet_datetime.strftime("%s"))
 
-		tweet_data['tweet_timestamps'].append(tweet_epoch)
+		tweet_timestamps.append(tweet_epoch)
 
-	tweet_data['urls_per_tweet_count'] = urls_per_tweet_count/tweets_w_urls_count # calculate avg number of URLs in tweets that include URLs
-	tweet_data['mentions_per_tweet_count'] = 	mentions_per_tweet_count/tweets_w_mentions_count # calculate avg number of menetions in tweets that include mentions
+	tweet_data.append({
+		'label': 'tweet_timestamps',
+		'rawValue': tweet_timestamps
+	})
+	tweet_data.append({
+		'label': 'urls_per_tweet_count',
+		'rawValue': urls_per_tweet_count/tweets_w_urls_count 
+	})
 
-	tweet_data['tweets_w_urls_ct'] = tweets_w_urls_count
-	tweet_data['tweets_w_mentions_ct'] = tweets_w_mentions_count
-	tweet_data['mentioned_users'] = mentioned_users
+	# urls_per_tweet_count/tweets_w_urls_count # calculate avg number of URLs in tweets that include URLs
+	# profileData['activity_data'].append({
+	# 	'label': 'urls_per_tweet_count',
+	# 	'rawValue': urls_per_tweet_count/tweets_w_urls_count
+	# })
+
+	tweet_data.append({
+		'label': 'mentions_per_tweet_count',
+		'rawValue': mentions_per_tweet_count/tweets_w_mentions_count
+	})
+	# mentions_per_tweet_count/tweets_w_mentions_count # calculate avg number of menetions in tweets that include mentions
+	# profileData['activity_data'].append({
+	# 	'label': 'mentions_per_tweet_count',
+	# 	'rawValue': mentions_per_tweet_count/tweets_w_mentions_count
+	# })
+
+	tweet_data.append({
+		'label': 'tweets_w_urls_ct',
+		'rawValue': tweets_w_urls_count
+	})
+	# tweets_w_urls_count
+	# profileData['activity_data'].append({
+	# 	'label': 'tweets_w_urls_ct',
+	# 	'rawValue': tweets_w_urls_count
+	# })
+
+	tweet_data.append({
+		'label': 'tweets_w_mentions_ct',
+		'rawValue': tweets_w_mentions_count
+	})
+
+	#tweets_w_mentions_count
+	# profileData['activity_data'].append({
+	# 	'label': 'tweets_w_mentions_ct',
+	# 	'rawValue': tweets_w_mentions_count
+	# })
+
+	tweet_data.append({
+		'label': 'mentioned_users',
+		'rawValue': mentioned_users
+	})
+
 
 	return tweet_data
 
@@ -125,14 +188,27 @@ def main():
 	relevant to heuristics used to capture social engineering attempts. """
 	api = TwitterAPI("h40ja5iFqGxoFQkKBNRSw4uGR", "bAwqCcJLgSzsvsz2jHDEh3n0mJ8DqVu8BlL7XFw5OJ6U9X92T8", "392486664-w6aPezJUbQvT3Qd7fMd1WVIfrUROQe2EZEZnzaMp", "TRNWsKQwLd2VNqaZmpg7NeaxhMxPjjjdoPaifp1zFIkyI") #strings
 
-	for name in sys.stdin:
-		profileData = getProfileData(api, name)
-		tweetData = getTweetData(api, name)
+	name = sys.argv[1]
+	if len(name) == 0:
+		return "ERROR: no username selector provided"
+	profileData = getProfileData(api, name)
+	tweetData = getTweetData(api, name)
 
-		# add tweetData to profileData
-		profileData['activity_data'].update(tweetData)
+	# add tweetData to profileData
+	# profileData['activity_data'].append(tweetData)
+	
+	for item in tweetData:
+		if item['label'] == 'tweet_timestamps':
+			profileData['tweet_timestamps']= item['rawValue']
+		elif item['label'] == 'mentioned_users':
+			profileData['mentioned_users']= item['rawValue']
+		else: 
+		# print item
+			profileData['activity_data'].append(item)
 
-		print profileData
+
+	print json.dumps(profileData)
+	#return json.dumps(profileData)
 
 if __name__ == "__main__":
 	main()
