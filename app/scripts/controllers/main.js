@@ -21,6 +21,9 @@ angular.module('fishreelApp')
     $scope.getUserExists = function() {
       function successCallback(response){
         $scope.performSearch = true;
+        $location.path('search-results/' + $scope.main.searchTerm);
+        $route.reload();
+
       }
       function errorCallback(response){
         $scope.performSearch = false;
@@ -30,11 +33,7 @@ angular.module('fishreelApp')
     };
 
     $scope.main.submitSearch = function () {
-      $scope.getUserExists($scope.main.searchTerm)
-    	if ($scope.main.searchTerm.length > 0 && $scope.performSearch) { 
-    		$location.path('search-results/' + $scope.main.searchTerm);
-    		$route.reload();
-    	}
+      $scope.getUserExists();
     };
   }]);
 
