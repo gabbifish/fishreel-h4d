@@ -19,23 +19,26 @@
 
 </br>
 <div flex>
-	<div ng-repeat="platform in associatedAccounts.listOfMatchedAccountsByPlatform[associatedAccounts.indexOfSearchedAccount].dataFields track by platform.id" flex>
-		<img ng-src="{{platform.icon}}" class="platform-icon-image" alt="{{platform.platformName}} icon" />
-		</br>
-		<md-list-item class="md-3-line padded" ng-repeat="account in foundAccounts=(platform.accountArray)">
-		  <img ng-src="{{account.profileImage}}" class="md-avatar" alt="{{account.firstName}}" />
-		  
-		  <div class="md-list-item-text" layout="column">
-		    <h3>{{ account.firstName }} {{ account.lastName }}</h3>
-		    <p class="go-to-platform-link">
-		    	<a href="{{account.accountLink}}">Go to {{platform.platformName}} account</a>
-		    </p>
-		    <p>{{ account.location }}</p>
-		    </br>
-		  </div>
+	<md-list-item class="md-3-line padded" ng-repeat="person in associatedAccounts.matches track by $index" flex>
+	  <div>{{$index+1}}</div>
+	  <img ng-if="person.images.length>0" ng-src="{{person.images[0].url}}" class="md-avatar" alt="{{person.firstName}}" />
+	  <img ng-if="person.images==null" ng-src="http://kairoschurch.org/wp-content/uploads/2013/09/default_profile-d80441a6f25a9a0aac354978c65c8fa91-e1379912288150.jpg" class="md-avatar" alt="{{person.firstName}}" />
+	  <div class="md-list-item-text" layout="column">
+	    <h3>{{ person.names[0].display }}</h3>
+	    <div ng-if="person.usernames.length>0">Username: {{ person.usernames[0].display }}</div>
+	    <div>{{ person.gender.display }}</div>
+	    <div class="go-to-platform-link" ng-repeat="addr in person.addresses">
+	    	<p>{{ addr.display }}</p>
+	    </div>
+	    <div ng-if="person.languages.length>0">Language: {{ person.languages[0].display }}</div>
+	    <div ng-if="person.origin_countries.length>0">Origin Country: {{ person.origin_countries[0].display }}</div>
+	    <div class="go-to-platform-link" ng-repeat="account in person.user_ids">
+	    	<a href="{{account.display}}">{{account.display}}</a>
+	    </div>
+	    </br>
+	  </div>
 
-		</md-list-item>
-		</br>
-		<md-divider ng-if="!$last"></md-divider>
-	</div>
+	</md-list-item>
+	</br>
+	<md-divider ng-if="!$last"></md-divider>
 </div>
