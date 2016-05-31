@@ -9,7 +9,7 @@
  */
 angular.module('fishreelApp' /*, ['graphPlotter']*/)
   .controller('SearchResultsCtrl', ['$scope', '$routeParams', '$http', function ($scope, $routeParams, $http) {
-    
+
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -36,12 +36,9 @@ angular.module('fishreelApp' /*, ['graphPlotter']*/)
    	$scope.searchResults.searchTerm = $routeParams.searchTerm;
 	
    	$scope.getTwitterAnalysis = function() {
-      console.log("Requested twitte anaylsis for " + $scope.searchResults.searchTerm);
-      console.log('/app/twitter_behavior/'+$scope.searchResults.searchTerm);
       function successCallback(response){
-        console.log(response.status);
         $scope.searchResults.userProfileFromServer = JSON.parse(response.data);
-        console.log($scope.searchResults.userProfileFromServer);
+        $scope.updateActivityDataArray();
       }
       function errorCallback(response){
         alert(response.data);
@@ -50,226 +47,237 @@ angular.module('fishreelApp' /*, ['graphPlotter']*/)
       	{"username":$scope.searchResults.searchTerm}, {}).then(successCallback, errorCallback);
     };
 
+    $scope.updateActivityDataArray = function() {
+		var descriptionAndValueMap = {
+			followersCount: {
+				dataDescription: 'Number of accounts that this user follows.',
+				dataTitle: 'Followers count',
+				warning: '',
+				dataType: 'boxplot',
+                summaryData: [
+                	{
+	                	label: 'Sample Population',
+	                	values: {
+	                	    Q1: 124,
+	                	    Q2: 417,
+	                	    Q3: 1236,
+	                	    whisker_low: 0,
+	                	    whisker_high: 5948707,
+	                	    outliers: []
+	                	}
+	                },
+	                {}
+				],
+				id: 0
+			},
+			friendsCount: {
+				dataDescription: 'Number of accounts following this user (defined by Twitter as friends).',
+				dataTitle: 'Friends Count',
+				dataType: 'boxplot',
+				warning: '',
+				summaryData: [
+                	{
+	                	label: 'Sample Population',
+	                	values: {
+	                	    Q1: 118,
+	                	    Q2: 324,
+	                	    Q3: 844,
+	                	    whisker_low: 0,
+	                	    whisker_high: 1028777,
+	                	    outliers: []
+	                	}
+	                },
+	                {}
+				],
+				id: 1
+			},
+			accountAge: {
+				dataDescription: 'Age of account in months.',
+				dataTitle: 'Account Age',
+				dataType: 'boxplot',
+				warning: '',
+				summaryData: [
+                	{
+	                	label: 'Sample Population',
+	                	values: {
+	                	    Q1: 12,
+	                	    Q2: 30,
+	                	    Q3: 53,
+	                	    whisker_low: 0,
+	                	    whisker_high: 120,
+	                	    outliers: []
+	                	}
+	                },
+	                {}
+				],
+				id: 2
+			},
+			statusesCount: {
+				dataDescription: 'Number of tweets posted by this user (defined by Twitter as statuses).',
+				dataTitle: 'Statuses Count',
+				dataType: 'boxplot',
+				warning: '',
+				summaryData: [
+                	{
+	                	label: 'Sample Population',
+	                	values: {
+	                	    Q1: 2043,
+	                	    Q2: 9246,
+	                	    Q3: 30777,
+	                	    whisker_low: 1,
+	                	    whisker_high: 3377109,
+	                	    outliers: []
+	                	}
+	                },
+	                {}
+				],
+				id: 3
+			},
+			urls_per_tweet_count: {
+				dataDescription: 'Average number of URLs per tweet posted by this user.',
+				dataTitle: 'URLs per tweet',
+				dataType: 'boxplot',
+				warning: 'Warning: this data is not fully representative due to limited to access to Twitter data. This statistic would be richer with greater data access.',
+				summaryData: [
+                	{
+	                	label: 'Sample Population',
+	                	values: {
+	                	    Q1: 180,
+	                	    Q2: 200,
+	                	    Q3: 250,
+	                	    whisker_low: 115,
+	                	    whisker_high: 400,
+	                	    outliers: [50, 100, 425]
+	                	}
+	                },
+	                {}
+				],
+				id: 4
+			},
+			mentions_per_tweet_count: {
+				dataDescription: 'Average number of mentions of other users per tweet posted by this user.',
+				dataTitle: 'Mentions per tweet',
+				dataType: 'boxplot',
+				warning: 'Warning: this data is not fully representative due to limited to access to Twitter data. This statistic would be richer with greater data access.',
+				summaryData: [
+                	{
+	                	label: 'Sample Population',
+	                	values: {
+	                	    Q1: 180,
+	                	    Q2: 200,
+	                	    Q3: 250,
+	                	    whisker_low: 115,
+	                	    whisker_high: 400,
+	                	    outliers: [50, 100, 425]
+	                	}
+	                },
+	                {}
+				],
+				id: 5
+			},
+			tweets_w_urls_ct: {
+				dataDescription: 'Total number of tweets postd by this user that contain URLs.',
+				dataTitle: 'Count of tweets with URLs',
+				dataType: 'boxplot',
+				warning: 'Warning: this data is not fully representative due to limited to access to Twitter data. This statistic would be richer with greater data access.',
+				summaryData: [
+                	{
+	                	label: 'Sample Population',
+	                	values: {
+	                	    Q1: 0,
+	                	    Q2: 0,
+	                	    Q3: 1,
+	                	    whisker_low: 0,
+	                	    whisker_high: 5,
+	                	    outliers: []
+	                	}
+	                },
+	                {}
+				],
+				id: 6
+			},
+			tweets_w_mentions_ct: {
+				dataDescription: 'Total number of tweets postd by this user that mention other users.',
+				dataTitle: 'Count of tweets with mentions',
+				dataType: 'boxplot',
+				warning: 'Warning: this data is not fully representative due to limited to access to Twitter data. This statistic would be richer with greater data access.',
+				summaryData: [
+                	{
+	                	label: 'Sample Population',
+	                	values: {
+	                	    Q1: 0,
+	                	    Q2: 1,
+	                	    Q3: 1,
+	                	    whisker_low: 0,
+	                	    whisker_high: 17,
+	                	    outliers: []
+	                	}
+	                },
+	                {}
+				],
+				id: 7
+			}
+		};
+
+
+    	for (var i = 0; i < $scope.searchResults.userProfileFromServer.activity_data.length; i++) {
+    		
+    		$scope.searchResults.userProfileFromServer.activity_data[i].dataType = descriptionAndValueMap[$scope.searchResults.userProfileFromServer.activity_data[i].label].dataType;
+    		$scope.searchResults.userProfileFromServer.activity_data[i].dataDescription = descriptionAndValueMap[$scope.searchResults.userProfileFromServer.activity_data[i].label].dataDescription;
+    		$scope.searchResults.userProfileFromServer.activity_data[i].dataTitle = descriptionAndValueMap[$scope.searchResults.userProfileFromServer.activity_data[i].label].dataTitle;
+    		$scope.searchResults.userProfileFromServer.activity_data[i].warning = descriptionAndValueMap[$scope.searchResults.userProfileFromServer.activity_data[i].label].warning;
+    		$scope.searchResults.userProfileFromServer.activity_data[i].hiddenBool = true
+    		$scope.searchResults.userProfileFromServer.activity_data[i].buttonText = 'Show more data';
+
+    		$scope.searchResults.userProfileFromServer.activity_data[i].summaryData = descriptionAndValueMap[$scope.searchResults.userProfileFromServer.activity_data[i].label].summaryData;
+    		var tempValueHolder = $scope.searchResults.userProfileFromServer.activity_data[i].rawValue;
+    		$scope.searchResults.userProfileFromServer.activity_data[i].summaryData[1] = {
+        	    label: $scope.searchResults.userProfileFromServer.twitterHandle,
+        	    values: {
+	        	    Q1: tempValueHolder,
+	        	    Q2: tempValueHolder,
+	        	    Q3: tempValueHolder,
+	        	    whisker_low: tempValueHolder,
+	        	    whisker_high: tempValueHolder,
+	        	    outliers: [tempValueHolder]
+	        	}
+        	};
+    	};
+    };
+
+
+    $scope.findIndexOfFieldGivenName = function(fieldName) {
+    	var fieldMap = {
+			followersCount: 0,
+			friendsCount: 1,
+			accountAge: 2,
+			statusesCount: 3,
+			urls_per_tweet_count: 4,
+			mentions_per_tweet_count: 5,
+			tweets_w_urls_ct: 6,
+			tweets_w_mentions_ct: 7
+    	};
+    	return fieldMap[fieldName];
+    }
+
+
+
+    $scope.searchResults.showOrHideMoreData = function (selectedDataLabel) {
+    	var index = $scope.findIndexOfFieldGivenName(selectedDataLabel);
+
+    	if ($scope.searchResults.userProfileFromServer.activity_data[index].hiddenBool === true) {
+    		$scope.searchResults.userProfileFromServer.activity_data[index].hiddenBool = false;
+    		$scope.searchResults.userProfileFromServer.activity_data[index].buttonText = 'Hide graph';
+    	} else {
+    		$scope.searchResults.userProfileFromServer.activity_data[index].hiddenBool = true;
+    		$scope.searchResults.userProfileFromServer.activity_data[index].buttonText = 'Show more data';
+    	};
+    	
+    };
+
+
     $scope.getTwitterAnalysis();
 
 
-   	$scope.searchResults.userProfileFromServer2 = {
-		twitterHandle: "travis_noll",
-		userID: 2,
-		name: "name",
-		description: "desc",
-		location: "loca",
-		timezone: "time",
-		website: "website",
-		creationDate: "Date",
-		profileImage: 'https://pbs.twimg.com/profile_images/623537519649394688/Gough0Pl.jpg',
-		language: "lang",
-		defaultProfile: "boolean",
-		defaultAvatar: "boolean",
-		analysisFields: [{
-			label: "label",
-			description: "description", // this is supposed to be for units?
-			rawValue: 20,
-			// reconsider valueAsPercentile, slightly larger impl lift than I expected
-			valueAsPercentile: "double"
-		}]
-	};
 
-/*
-
-    $scope.searchResults.data = [
-            {
-                label: "Sample A",
-                values: {
-                    Q1: 180,
-                    Q2: 200,
-                    Q3: 250,
-                    whisker_low: 115,
-                    whisker_high: 400,
-                    outliers: [50, 100, 425]
-                }
-            }
-        ];
-
-    
-    $scope.searchResults.searchTerm = $routeParams.searchTerm;
-
-	$scope.searchResults.anomalyDataArray = [
-		{
-			id: 1,
-			label: 'Number of followers',
-			imageArray: [
-				'images/user-1-chart-1.png',
-				'images/user-2-chart-1.png',
-				'images/user-3-chart-1.png'
-			]
-		},
-		{
-			id: 2,
-			label: 'Number of friends (followees)',
-			imageArray: [
-				'images/user-1-chart-2.png',
-				'images/user-2-chart-2.png',
-				'images/user-3-chart-2.png'
-			]
-		},
-		{
-			id: 3,
-			label: 'Age of account',
-			imageArray: [
-				'images/user-1-chart-3.png',
-				'images/user-2-chart-3.png',
-				'images/user-3-chart-3.png'
-			]
-		},
-		{
-			id: 4,
-			label: 'Custom background',
-			imageArray: [
-				'images/user-1-chart-4.png',
-				'images/user-2-chart-4.png',
-				'images/user-3-chart-4.png'
-			]
-		},
-		{
-			id: 5,
-			label: 'Customer profile picture',
-			imageArray: [
-				'images/user-1-chart-5.png',
-				'images/user-2-chart-5.png',
-				'images/user-3-chart-5.png'
-			]
-		},
-		{
-			id: 6,
-			label: 'Number of statuses',
-			imageArray: [
-				'images/user-1-chart-6.png',
-				'images/user-2-chart-6.png',
-				'images/user-3-chart-6.png'
-			]
-		}
-	];
-
-	var listOfAccounts = [
-    		'travis_noll',
-    		'tommybyers',
-    		'thingsqr'
-    ];
-    var profileImageArray = [
-    		'https://pbs.twimg.com/profile_images/623537519649394688/Gough0Pl.jpg',
-    		'https://pbs.twimg.com/profile_images/378800000864748702/ERTy9Mu9.jpeg',
-    		'https://pbs.twimg.com/profile_images/710081445495226369/0EpZxIUx.jpg'
-    ];
-
-    $scope.searchResults.indexOfSearchedAccount = listOfAccounts.indexOf($scope.searchResults.searchTerm);
-    $scope.searchResults.twitterAccountProfileImage = profileImageArray[$scope.searchResults.indexOfSearchedAccount];
-
-	$scope.searchResults.twitterAccountDetails = [
-		{
-			fieldArrays : [
-			{
-				id: 1,
-				field: 'First name',
-				value: 'Travis',
-			},
-			{
-				id: 2,
-				field: 'Last name',
-				value: 'Noll',
-			},
-			{
-				id: 3,
-				field: 'Description',
-				value: '@StanfordBiz, formerly @ZSAssociates | tweets about politics and tech',
-			},
-			{
-				id: 4,
-				field: 'Location',
-				value: 'SF / Stanford',
-			},
-			{
-				id: 5,
-				field: 'Website',
-				value: 'about.me/travisnoll',
-			},
-			{
-				id: 6,
-				field: 'Creation date',
-				value: 'February 2011',
-			}
-			]
-		},
-		{		
-			fieldArrays : [
-			{
-				id: 1,
-				field: 'First name',
-				value: 'Tom',
-			},
-			{
-				id: 2,
-				field: 'Last name',
-				value: 'Byers',
-			},
-			{
-				id: 3,
-				field: 'Description',
-				value: 'Entrepreneurship Professor at Stanford University',
-			},
-			{
-				id: 4,
-				field: 'Location',
-				value: 'Palo Alto, Calif.',
-			},
-			{
-				id: 5,
-				field: 'Website',
-				value: 'stanford.edu/~tbyers',
-			},
-			{
-				id: 6,
-				field: 'Creation date',
-				value: 'March 2009',
-			}
-			]
-		},
-
-		{
-			fieldArrays : [
-			{
-				id: 1,
-				field: 'First name',
-				value: 'Thingsquare',
-			},
-			{
-				id: 2,
-				field: 'Last name',
-				value: '',
-			},
-			{
-				id: 3,
-				field: 'Description',
-				value: 'The world at your fingertips - connecting products with smartphone apps. thingsquare.com',
-			},
-			{
-				id: 4,
-				field: 'Location',
-				value: '#IoT',
-			},
-			{
-				id: 5,
-				field: 'Website',
-				value: 'thingsquare.com',
-			},
-			{
-				id: 6,
-				field: 'Creation date',
-				value: 'May 2012',
-			}
-			]
-		}
-
-	];
-*/
   }]);

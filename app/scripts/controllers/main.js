@@ -8,7 +8,7 @@
  * Controller of the fishreelApp
  */
 angular.module('fishreelApp')
-  .controller('MainCtrl', ['$scope', '$location', '$route', function ($scope, $location, $route) {
+  .controller('MainCtrl', ['$scope', '$location', '$route', '$http', function ($scope, $location, $route, $http) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -16,17 +16,24 @@ angular.module('fishreelApp')
     ];
     $scope.main = {};
     $scope.main.searchTerm = '';
+    $scope.performSearch = null; //indicator used to check if inputted accont exists.
+
+    $scope.getUserExists = function() {
+      function successCallback(response){
+        $scope.performSearch = true;
+        $location.path('search-results/' + $scope.main.searchTerm);
+        $route.reload();
+
+      }
+      function errorCallback(response){
+        $scope.performSearch = false;
+      }
+      $http.get('/app/twitter_user_exists/'+$scope.main.searchTerm, 
+        {"username":$scope.main.searchTerm}, {}).then(successCallback, errorCallback);
+    };
 
     $scope.main.submitSearch = function () {
-    	var listOfAccounts = [
-    		'travis_noll',
-    		'tommybyers',
-    		'thingsqr'
-    	];
-    	if (listOfAccounts.indexOf($scope.main.searchTerm) !== -1) { 
-    		console.log($scope.main.searchTerm);
-    		$location.path('search-results/' + $scope.main.searchTerm);
-    		$route.reload();
-    	}
+      $scope.getUserExists();
     };
   }]);
+
