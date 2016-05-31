@@ -44,6 +44,7 @@ app.get('/app/twitter_behavior/:username', function (request, response) {
 app.get('/app/twitter_user_exists/:username', function (request, response) {
     PythonShell.run('account_exists.py', {args:[request.params.username]}, function (err, results) {
         console.log("checking if user exists");
+        console.log(err);
         if (err) {
             response.status(400).send("No account found with that name");
         } else {

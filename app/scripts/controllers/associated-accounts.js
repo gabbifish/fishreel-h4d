@@ -17,6 +17,7 @@ angular.module('fishreelApp')
     $scope.associatedAccounts = {};
     $scope.associatedAccounts.matches = {};
     $scope.associatedAccounts.searchTerm = $routeParams.searchTerm;
+    $scope.associatedAccounts.profileImage = $scope.app.profileImage;
 
     $scope.getAssociatedAccounts = function() {
       console.log("Requested associated accounts for " + $scope.associatedAccounts.searchTerm);

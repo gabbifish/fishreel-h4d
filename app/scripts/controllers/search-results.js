@@ -25,6 +25,7 @@ angular.module('fishreelApp')
         	$scope.updateActivityDataArray();
         	
         }, 1000);
+        $scope.app.profileImage = $scope.searchResults.userProfileFromServer.profileImage;
       }
       function errorCallback(response){
         alert(response.data);

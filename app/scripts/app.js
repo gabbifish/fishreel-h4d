@@ -36,4 +36,8 @@ angular
       .otherwise({
         redirectTo: '/'
       });
-  });
+  })
+  .controller('AppCtrl', ['$scope', function ($scope) {
+    $scope.app = {};
+    $scope.app.profileImage = '';
+  }]);
