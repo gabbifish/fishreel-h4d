@@ -3,11 +3,11 @@
 This project is generated with [yo angular generator](https://github.com/yeoman/generator-angular)
 version 0.11.1.
 
+Supported by Python 2.7.11 and newer. 
+
 ## Build & development
 
-Run `grunt` for building and `grunt serve` for preview.
-
-If getting the **'python2_unicode_compatible' error**, this is likely because your OS X is referencing an older version of six, that is not in your pip installed directory. Pip installs in /Library/[..] while your system python installs in /System/Library/[..]
+If getting the **'python2_unicode_compatible' error** when looking at related accounts, this is likely because your OS is referencing an older version of **six**, one that is not in your pip installed directory. Pip installs in /Library/[..] while your system python installs in /System/Library/[..]
 
 If you pip install six, it probably installs 1.9.0, but when you go into your python console, and type 
 import six
