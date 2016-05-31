@@ -58,12 +58,12 @@ angular.module('fishreelApp' /*, ['graphPlotter']*/)
                 	{
 	                	label: 'Sample Population',
 	                	values: {
-	                	    Q1: 180,
-	                	    Q2: 200,
-	                	    Q3: 250,
-	                	    whisker_low: 115,
-	                	    whisker_high: 400,
-	                	    outliers: [50, 100, 425]
+	                	    Q1: 124,
+	                	    Q2: 417,
+	                	    Q3: 1236,
+	                	    whisker_low: 0,
+	                	    whisker_high: 5948707,
+	                	    outliers: []
 	                	}
 	                },
 	                {}
@@ -79,12 +79,12 @@ angular.module('fishreelApp' /*, ['graphPlotter']*/)
                 	{
 	                	label: 'Sample Population',
 	                	values: {
-	                	    Q1: 180,
-	                	    Q2: 200,
-	                	    Q3: 250,
-	                	    whisker_low: 115,
-	                	    whisker_high: 400,
-	                	    outliers: [50, 100, 425]
+	                	    Q1: 118,
+	                	    Q2: 324,
+	                	    Q3: 844,
+	                	    whisker_low: 0,
+	                	    whisker_high: 1028777,
+	                	    outliers: []
 	                	}
 	                },
 	                {}
@@ -100,12 +100,12 @@ angular.module('fishreelApp' /*, ['graphPlotter']*/)
                 	{
 	                	label: 'Sample Population',
 	                	values: {
-	                	    Q1: 180,
-	                	    Q2: 200,
-	                	    Q3: 250,
-	                	    whisker_low: 115,
-	                	    whisker_high: 400,
-	                	    outliers: [50, 100, 425]
+	                	    Q1: 12,
+	                	    Q2: 30,
+	                	    Q3: 53,
+	                	    whisker_low: 0,
+	                	    whisker_high: 120,
+	                	    outliers: []
 	                	}
 	                },
 	                {}
@@ -121,12 +121,12 @@ angular.module('fishreelApp' /*, ['graphPlotter']*/)
                 	{
 	                	label: 'Sample Population',
 	                	values: {
-	                	    Q1: 180,
-	                	    Q2: 200,
-	                	    Q3: 250,
-	                	    whisker_low: 115,
-	                	    whisker_high: 400,
-	                	    outliers: [50, 100, 425]
+	                	    Q1: 2043,
+	                	    Q2: 9246,
+	                	    Q3: 30777,
+	                	    whisker_low: 1,
+	                	    whisker_high: 3377109,
+	                	    outliers: []
 	                	}
 	                },
 	                {}
@@ -184,12 +184,12 @@ angular.module('fishreelApp' /*, ['graphPlotter']*/)
                 	{
 	                	label: 'Sample Population',
 	                	values: {
-	                	    Q1: 180,
-	                	    Q2: 200,
-	                	    Q3: 250,
-	                	    whisker_low: 115,
-	                	    whisker_high: 400,
-	                	    outliers: [50, 100, 425]
+	                	    Q1: 0,
+	                	    Q2: 0,
+	                	    Q3: 1,
+	                	    whisker_low: 0,
+	                	    whisker_high: 5,
+	                	    outliers: []
 	                	}
 	                },
 	                {}
@@ -205,12 +205,12 @@ angular.module('fishreelApp' /*, ['graphPlotter']*/)
                 	{
 	                	label: 'Sample Population',
 	                	values: {
-	                	    Q1: 180,
-	                	    Q2: 200,
-	                	    Q3: 250,
-	                	    whisker_low: 115,
-	                	    whisker_high: 400,
-	                	    outliers: [50, 100, 425]
+	                	    Q1: 0,
+	                	    Q2: 1,
+	                	    Q3: 1,
+	                	    whisker_low: 0,
+	                	    whisker_high: 17,
+	                	    outliers: []
 	                	}
 	                },
 	                {}
