@@ -8,7 +8,7 @@
  * Controller of the fishreelApp
  */
 angular.module('fishreelApp' /*, ['graphPlotter']*/)
-  .controller('SearchResultsCtrl', ['$scope', '$routeParams', '$http', function ($scope, $routeParams, $http) {
+  .controller('SearchResultsCtrl', ['$scope', '$routeParams', '$http', '$timeout', function ($scope, $routeParams, $http, $timeout) {
 
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
@@ -38,7 +38,9 @@ angular.module('fishreelApp' /*, ['graphPlotter']*/)
    	$scope.getTwitterAnalysis = function() {
       function successCallback(response){
         $scope.searchResults.userProfileFromServer = JSON.parse(response.data);
-        $scope.updateActivityDataArray();
+        $timeout(function(){
+        	$scope.updateActivityDataArray();
+        }, 1000); 
       }
       function errorCallback(response){
         alert(response.data);
@@ -47,7 +49,7 @@ angular.module('fishreelApp' /*, ['graphPlotter']*/)
       	{"username":$scope.searchResults.searchTerm}, {}).then(successCallback, errorCallback);
     };
 
-    $scope.updateActivityDataArray = function() {
+    $scope.updateActivityDataArray = function() {	
 		var descriptionAndValueMap = {
 			followersCount: {
 				dataDescription: 'Number of accounts that this user follows.',
