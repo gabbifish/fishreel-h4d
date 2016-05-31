@@ -7,8 +7,8 @@
  * # MainCtrl
  * Controller of the fishreelApp
  */
-angular.module('fishreelApp' /*, ['graphPlotter']*/)
-  .controller('SearchResultsCtrl', ['$scope', '$routeParams', '$http', '$timeout', function ($scope, $routeParams, $http, $timeout) {
+angular.module('fishreelApp')
+  .controller('SearchResultsCtrl', ['$scope', '$routeParams', '$http', '$timeout', '$rootScope', function ($scope, $routeParams, $http, $timeout, $rootScope) {
 
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
@@ -16,31 +16,15 @@ angular.module('fishreelApp' /*, ['graphPlotter']*/)
       'Karma'
     ];
 	$scope.searchResults = {};
-    $scope.searchResults.options = {
-    	        chart: {
-    	            type: 'boxPlotChart',
-    	            height: 450,
-    	            margin : {
-    	                top: 20,
-    	                right: 20,
-    	                bottom: 60,
-    	                left: 40
-    	            },
-    	            color:['darkblue'],
-    	            x: function(d){return d.label;},
-    	            // y: function(d){return d.values.Q3;},
-    	            maxBoxWidth: 125,
-    	            yDomain: [0, 500]
-    	        }
-   	};
    	$scope.searchResults.searchTerm = $routeParams.searchTerm;
-	
+
    	$scope.getTwitterAnalysis = function() {
       function successCallback(response){
         $scope.searchResults.userProfileFromServer = JSON.parse(response.data);
         $timeout(function(){
         	$scope.updateActivityDataArray();
-        }, 1000); 
+        	
+        }, 1000);
       }
       function errorCallback(response){
         alert(response.data);
@@ -300,6 +284,7 @@ angular.module('fishreelApp' /*, ['graphPlotter']*/)
 
 
     $scope.getTwitterAnalysis();
+
 
 
 
