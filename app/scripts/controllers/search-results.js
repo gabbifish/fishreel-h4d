@@ -36,14 +36,9 @@ angular.module('fishreelApp' /*, ['graphPlotter']*/)
    	$scope.searchResults.searchTerm = $routeParams.searchTerm;
 	
    	$scope.getTwitterAnalysis = function() {
-      console.log("Requested twitter anaylsis for " + $scope.searchResults.searchTerm);
-      console.log('/app/twitter_behavior/'+$scope.searchResults.searchTerm);
       function successCallback(response){
-        console.log(response.status);
         $scope.searchResults.userProfileFromServer = JSON.parse(response.data);
-        
         $scope.updateActivityDataArray();
-        console.log($scope.searchResults.userProfileFromServer);
       }
       function errorCallback(response){
         alert(response.data);
@@ -223,9 +218,9 @@ angular.module('fishreelApp' /*, ['graphPlotter']*/)
 				id: 7
 			}
 		};
-		console.log($scope.searchResults.userProfileFromServer);
+
+
     	for (var i = 0; i < $scope.searchResults.userProfileFromServer.activity_data.length; i++) {
-    		//console.log($scope.searchResults.userProfileFromServer.activity_data[i]);
     		
     		$scope.searchResults.userProfileFromServer.activity_data[i].dataType = descriptionAndValueMap[$scope.searchResults.userProfileFromServer.activity_data[i].label].dataType;
     		$scope.searchResults.userProfileFromServer.activity_data[i].dataDescription = descriptionAndValueMap[$scope.searchResults.userProfileFromServer.activity_data[i].label].dataDescription;

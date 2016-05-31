@@ -32,7 +32,6 @@ angular.module('fishreelApp')
     $scope.main.submitSearch = function () {
       $scope.getUserExists($scope.main.searchTerm)
     	if ($scope.main.searchTerm.length > 0 && $scope.performSearch) { 
-    		console.log($scope.main.searchTerm);
     		$location.path('search-results/' + $scope.main.searchTerm);
     		$route.reload();
     	}
