@@ -18,7 +18,7 @@ angular.module('fishreelApp')
     $scope.main.searchTerm = '';
     $scope.performSearch = null; //indicator used to check if inputted accont exists.
 
-    $scope.getUserExists = function() {
+    $scope.main.submitSearch = function() {
       function successCallback(response){
         $scope.performSearch = true;
         $location.path('search-results/' + $scope.main.searchTerm);
@@ -30,10 +30,6 @@ angular.module('fishreelApp')
       }
       $http.get('/app/twitter_user_exists/'+$scope.main.searchTerm, 
         {"username":$scope.main.searchTerm}, {}).then(successCallback, errorCallback);
-    };
-
-    $scope.main.submitSearch = function () {
-      $scope.getUserExists();
     };
   }]);
 
