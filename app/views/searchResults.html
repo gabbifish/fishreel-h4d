@@ -58,8 +58,8 @@
 
 <md-divider></md-divider>
 
-<md-content class="md-padding" layout="row">
-	<md-card>
+<md-content class="md-padding" layout="row" style="width: 720px;" flex>
+	<md-card style="width: 400px;">
 		<md-card-header>
 			<md-card-header-text>
 			      <span class="md-title">Customized Profile Picture?</span>
@@ -76,7 +76,7 @@
 	</md-card>
 	<br>
 
-	<md-card>
+	<md-card style="width: 400px;">
 		<md-card-header>
 			<md-card-header-text>
 			      <span class="md-title">Customized Profile Apperance?</span>
@@ -93,7 +93,7 @@
 	</md-card>
 </md-content>
 
-<md-card ng-repeat="analysisField in searchResults.userProfileFromServer.activity_data track by analysisField.label">
+<md-card ng-repeat="analysisField in searchResults.userProfileFromServer.activity_data track by analysisField.label" style="width: 720px;">
 	<md-card-header>
 		<md-card-header-text>
 		      <span class="md-title">{{analysisField.dataTitle}}</span>
