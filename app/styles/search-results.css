@@ -10,6 +10,11 @@ td, th {
   border-bottom: 3px black;
 }
 
+.text-warning {
+	color: #B54C4C;
+	font-weight: bold;
+}
+
 .summary-information {
 	box-sizing: border-box;
 }

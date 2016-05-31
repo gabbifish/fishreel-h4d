@@ -6,7 +6,7 @@
       <form ng-submit="main.submitSearch()">
             <input type="text" class="form-control" placeholder="Search for Twitter handles..." ng-model="main.searchTerm">
       </form>
-      <div ng-if="performSearch == false">
+      <div class="error" ng-if="performSearch == false">
         The inputted user name does not exist.
       </div>
     </div>

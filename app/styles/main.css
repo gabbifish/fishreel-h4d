@@ -9,6 +9,10 @@ body {
   padding: 0;
 }
 
+.error {
+  color: #B54C4C;
+}
+
 .search-bar {
   height: 34px;
 }
