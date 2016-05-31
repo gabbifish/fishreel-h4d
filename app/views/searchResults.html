@@ -7,7 +7,7 @@
 				{{searchResults.userProfileFromServer.twitterHandle}}
 			</h2>
 			<h5 class="md-title">
-				Details from <a href="www.twitter.com/{{searchResults.userProfileFromServer.twitterHandle}}">Twitter Profile</a>:
+				Details from <a ng-href="https://www.twitter.com/{{searchResults.userProfileFromServer.twitterHandle}}">Twitter Profile</a>:
 			</h5>
 		</div>
 		<div flex="20">
@@ -38,7 +38,7 @@
 			</tr>
 			<tr>
 				<td>Website</td>
-				<td><a ng-href="searchResults.userProfileFromServer.website"></a>{{searchResults.userProfileFromServer.website}}</td>
+				<td><a ng-href="{{searchResults.userProfileFromServer.website}}">{{searchResults.userProfileFromServer.website}}</a></td>
 			</tr>
 			<tr>
 				<td>Creation date</td>
@@ -58,58 +58,71 @@
 
 <md-divider></md-divider>
 
-<md-content class="md-padding" layout="row" style="width: 720px;" flex>
-	<md-card style="width: 400px;">
-		<md-card-header>
-			<md-card-header-text>
-			      <span class="md-title">Customized Profile Picture?</span>
-			</md-card-header-text>
-		</md-card-header>
-	  	<md-card-content>
-	  		<span ng-if="!searchResults.userProfileFromServer.defaultAvatarBool">
-	  			<span ng-include="'app/check.svg'" class="img-circle img-account-profile" aria-label="check symbol"/>
-	  		</span>
-			<span ng-if="searchResults.userProfileFromServer.defaultAvatarBool">
-				<span ng-include="'app/warning.svg'" class="img-circle img-account-profile" aria-label="warning symbol"/>
-			</span>
-	  	</md-card-content>
-	</md-card>
-	<br>
+<div class="binary_data">
+	<md-content class="md-padding" layout="row">
+		<md-card flex="50">
+			<md-card-header>
+				<md-card-header-text>
+				      <span class="md-title">Custom Profile Picture?</span>
+				</md-card-header-text>
+			</md-card-header>
+		  	<md-card-content>
+		  		<center>
+			  		<span ng-if="!searchResults.userProfileFromServer.defaultAvatarBool">
+			  			<span ng-include="'app/check.svg'" class="img-circle img-account-profile" aria-label="check symbol"/>
+			  		</span>
+					<span ng-if="searchResults.userProfileFromServer.defaultAvatarBool">
+						<span ng-include="'app/warning.svg'" class="img-circle img-account-profile" aria-label="warning symbol"/>
+					</span>
+				<br>
+				<md-body-1>96% of Twitter users have a personalized avatar.</md-body-1>
+				</center>
+		  	</md-card-content>
+		</md-card>
 
-	<md-card style="width: 400px;">
-		<md-card-header>
-			<md-card-header-text>
-			      <span class="md-title">Customized Profile Apperance?</span>
-			</md-card-header-text>
-		</md-card-header>
-	  	<md-card-content>
-	  		<span ng-if="!searchResults.userProfileFromServer.defaultAvatarBool">
-	  			<span ng-include="'app/check.svg'" class="img-circle img-account-profile" aria-label="check symbol"/>
-	  		</span>
-			<span ng-if="searchResults.userProfileFromServer.defaultAvatarBool">
-				<span ng-include="'app/warning.svg'" class="img-circle img-account-profile" aria-label="warning symbol"/>
-			</span>
-	  	</md-card-content>
-	</md-card>
-</md-content>
+		<md-card flex="50">
+			<md-card-header>
+				<md-card-header-text>
+				      <span class="md-title">Custom Profile Apperance?</span>
+				</md-card-header-text>
+			</md-card-header>
+		  	<md-card-content>
+		  		<center>
+			  		<span ng-if="!searchResults.userProfileFromServer.defaultAvatarBool">
+			  			<span ng-include="'app/check.svg'" class="img-circle img-account-profile" aria-label="check symbol"/>
+			  		</span>
+					<span ng-if="searchResults.userProfileFromServer.defaultAvatarBool">
+						<span ng-include="'app/warning.svg'" class="img-circle img-account-profile" aria-label="warning symbol"/>
+					</span>
+				<br>
+				<md-body-1>51% of Twitter users have personalized their account's appearance.</md-body-1>
+				</center>
+		  	</md-card-content>
+		</md-card>
+	</md-content>
+</div>
 
-<md-card ng-repeat="analysisField in searchResults.userProfileFromServer.activity_data track by analysisField.label" style="width: 720px;">
-	<md-card-header>
-		<md-card-header-text>
-		      <span class="md-title">{{analysisField.dataTitle}}</span>
-		      <span class="md-subhead">{{analysisField.dataDescription}}</span>
-		      <span class="text-warning">{{analysisField.warning}}</span>
-		      <p></p>
-		      <span class="md-subhead"><h4 class="search-for-accounts-link">{{analysisField.rawValue}}</h4></span>
-		</md-card-header-text>
-	</md-card-header>
-  	<md-card-content>
-  		<section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
-  			<md-button class="md-raised" ng-click="searchResults.showOrHideMoreData(analysisField.label)" aria-label="Button to show or hide data">{{analysisField.buttonText}}</md-button>
-		</section>
-  		<div flex>
-  			<nvd3 flex options='analysisField.chartOptions' data='analysisField.summaryData' ng-hide="analysisField.hiddenBool"></nvd3>
-  		</div>
-  	</md-card-content>
-</md-card>
+<div class="numeric_data">
+	<md-content class="md-padding">
+		<md-card ng-repeat="analysisField in searchResults.userProfileFromServer.activity_data track by analysisField.label">
+			<md-card-header>
+				<md-card-header-text>
+				      <span class="md-title">{{analysisField.dataTitle}}</span>
+				      <span class="md-subhead">{{analysisField.dataDescription}}</span>
+				      <span class="text-warning">{{analysisField.warning}}</span>
+				      <p></p>
+				      <span class="md-subhead"><h4 class="search-for-accounts-link">{{analysisField.rawValue}}</h4></span>
+				</md-card-header-text>
+			</md-card-header>
+		  	<md-card-content>
+		  		<section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+		  			<md-button class="md-raised" ng-click="searchResults.showOrHideMoreData(analysisField.label)" aria-label="Button to show or hide data">{{analysisField.buttonText}}</md-button>
+				</section>
+		  		<div flex>
+		  			<nvd3 flex options='analysisField.chartOptions' data='analysisField.summaryData' ng-hide="analysisField.hiddenBool"></nvd3>
+		  		</div>
+		  	</md-card-content>
+		</md-card>
+	</md-content>
+</div>
 
