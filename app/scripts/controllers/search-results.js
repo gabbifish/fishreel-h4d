@@ -29,7 +29,7 @@ angular.module('fishreelApp' /*, ['graphPlotter']*/)
     	            color:['darkblue'],
     	            x: function(d){return d.label;},
     	            // y: function(d){return d.values.Q3;},
-    	            maxBoxWidth: 75,
+    	            maxBoxWidth: 125,
     	            yDomain: [0, 500]
     	        }
    	};
@@ -61,9 +61,9 @@ angular.module('fishreelApp' /*, ['graphPlotter']*/)
 	                	    Q1: 124,
 	                	    Q2: 417,
 	                	    Q3: 1236,
-	                	    whisker_low: 0,
-	                	    whisker_high: 5948707,
-	                	    outliers: []
+	                	    whisker_low: 1,
+	                	    whisker_high: 2904,
+	                	    outliers: [5948707]
 	                	}
 	                },
 	                {}
@@ -82,9 +82,9 @@ angular.module('fishreelApp' /*, ['graphPlotter']*/)
 	                	    Q1: 118,
 	                	    Q2: 324,
 	                	    Q3: 844,
-	                	    whisker_low: 0,
-	                	    whisker_high: 1028777,
-	                	    outliers: []
+	                	    whisker_low: 1,
+	                	    whisker_high: 1933,
+	                	    outliers: [1028777]
 	                	}
 	                },
 	                {}
@@ -103,9 +103,9 @@ angular.module('fishreelApp' /*, ['graphPlotter']*/)
 	                	    Q1: 12,
 	                	    Q2: 30,
 	                	    Q3: 53,
-	                	    whisker_low: 0,
-	                	    whisker_high: 120,
-	                	    outliers: []
+	                	    whisker_low: 1,
+	                	    whisker_high: 114,
+	                	    outliers: [120]
 	                	}
 	                },
 	                {}
@@ -125,8 +125,8 @@ angular.module('fishreelApp' /*, ['graphPlotter']*/)
 	                	    Q2: 9246,
 	                	    Q3: 30777,
 	                	    whisker_low: 1,
-	                	    whisker_high: 3377109,
-	                	    outliers: []
+	                	    whisker_high: 73878,
+	                	    outliers: [3377109]
 	                	}
 	                },
 	                {}
@@ -145,9 +145,9 @@ angular.module('fishreelApp' /*, ['graphPlotter']*/)
 	                	    Q1: 180,
 	                	    Q2: 200,
 	                	    Q3: 250,
-	                	    whisker_low: 115,
-	                	    whisker_high: 400,
-	                	    outliers: [50, 100, 425]
+	                	    whisker_low: 75,
+	                	    whisker_high: 355,
+	                	    outliers: [115, 400]
 	                	}
 	                },
 	                {}
@@ -166,8 +166,8 @@ angular.module('fishreelApp' /*, ['graphPlotter']*/)
 	                	    Q1: 180,
 	                	    Q2: 200,
 	                	    Q3: 250,
-	                	    whisker_low: 115,
-	                	    whisker_high: 400,
+	                	    whisker_low: 65,
+	                	    whisker_high: 355,
 	                	    outliers: [50, 100, 425]
 	                	}
 	                },
@@ -187,9 +187,9 @@ angular.module('fishreelApp' /*, ['graphPlotter']*/)
 	                	    Q1: 0,
 	                	    Q2: 0,
 	                	    Q3: 1,
-	                	    whisker_low: 0,
-	                	    whisker_high: 5,
-	                	    outliers: []
+	                	    whisker_low: 1,
+	                	    whisker_high: 2.5,
+	                	    outliers: [5]
 	                	}
 	                },
 	                {}
@@ -209,8 +209,8 @@ angular.module('fishreelApp' /*, ['graphPlotter']*/)
 	                	    Q2: 1,
 	                	    Q3: 1,
 	                	    whisker_low: 0,
-	                	    whisker_high: 17,
-	                	    outliers: []
+	                	    whisker_high: 2.5,
+	                	    outliers: [5, 6, 7, 8, 9, 12, 14, 17]
 	                	}
 	                },
 	                {}
@@ -242,6 +242,27 @@ angular.module('fishreelApp' /*, ['graphPlotter']*/)
 	        	    outliers: [tempValueHolder]
 	        	}
         	};
+        	var smallest = $scope.searchResults.userProfileFromServer.activity_data[i].summaryData[0].values.whisker_low;
+        	var largest = $scope.searchResults.userProfileFromServer.activity_data[i].summaryData[0].values.whisker_high;
+        	var lowerBound = smallest - 0.25 * (largest - smallest);
+        	var upperBound = largest + 0.25 * (largest - smallest);
+        	$scope.searchResults.userProfileFromServer.activity_data[i].chartOptions = {
+    	        chart: {
+    	            type: 'boxPlotChart',
+    	            height: 450,
+    	            margin : {
+    	                top: 20,
+    	                right: 20,
+    	                bottom: 60,
+    	                left: 40
+    	            },
+    	            color:['darkblue'],
+    	            x: function(d){return d.label;},
+    	            // y: function(d){return d.values.Q3;},
+    	            maxBoxWidth: 125,
+    	            yDomain: [lowerBound, upperBound]
+    	        }
+   			};
     	};
     };
 
