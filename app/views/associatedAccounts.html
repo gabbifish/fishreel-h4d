@@ -27,13 +27,17 @@
 	    <h3>{{ person.names[0].display }}</h3>
 	    <div ng-if="person.usernames.length>0">Username: {{ person.usernames[0].display }}</div>
 	    <div>{{ person.gender.display }}</div>
-	    <div class="go-to-platform-link" ng-repeat="addr in person.addresses">
-	    	<p>{{ addr.display }}</p>
+	    <div ng-if="person.addresses.length>1">Associated Locations:</div>
+	    <div ng-if="person.addresses.length===1">Associated Location:</div>
+	    <div class="addresses" ng-repeat="addr in person.addresses">
+	    	<div>{{ addr.display }}</div>
 	    </div>
 	    <div ng-if="person.languages.length>0">Language: {{ person.languages[0].display }}</div>
 	    <div ng-if="person.origin_countries.length>0">Origin Country: {{ person.origin_countries[0].display }}</div>
+	    <div ng-if="person.user_ids.length>1">Account Links:</div>
+	    <div ng-if="person.user_ids.length===1">Account Link:</div>
 	    <div class="go-to-platform-link" ng-repeat="account in person.user_ids">
-	    	<a href="{{account.display}}">{{account.display}}</a>
+	    	<a href="{{account}}">{{account}}</a>
 	    </div>
 	    </br>
 	  </div>
