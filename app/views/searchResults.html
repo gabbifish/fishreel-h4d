@@ -104,7 +104,7 @@
   			<md-button class="md-raised" ng-click="searchResults.showOrHideMoreData(analysisField.label)">{{analysisField.buttonText}}</md-button>
 		</section>
   		<div flex>
-  			<nvd3 flex options='searchResults.options' data='analysisField.summaryData' ng-hide="analysisField.hiddenBool"></nvd3>
+  			<nvd3 flex options='analysisField.chartOptions' data='analysisField.summaryData' ng-hide="analysisField.hiddenBool"></nvd3>
   		</div>
   	</md-card-content>
 </md-card>
